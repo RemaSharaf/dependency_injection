@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 class PageOneController extends GetxController {
+  String argument = Get.arguments["id"];
   int counter = 0;
   void increment() {
     counter++;
@@ -14,7 +15,7 @@ class PageOneController extends GetxController {
 
   @override
   void onInit() {
-    print("init");
+    // print("init");
     super.onInit();
   }
 

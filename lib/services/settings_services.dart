@@ -9,7 +9,9 @@ class SettingServices extends GetxService {
 
   Future<SettingServices> init() async {
     sharedPreferences = await SharedPreferences.getInstance();
-
+    Locale intialLang = (sharedPreferences.getString("lang")) == "ar"
+        ? const Locale("ar")
+        : const Locale("en");
     counter.value = sharedPreferences.getInt("counter") ?? 0;
     return this;
   }
@@ -17,5 +19,11 @@ class SettingServices extends GetxService {
   increase() {
     counter.value++;
     sharedPreferences.setInt("counter", counter.value);
+  }
+
+  void changeLan(String code) {
+    Locale locale = Locale(code);
+    sharedPreferences.setString("lang", code);
+    Get.updateLocale(locale);
   }
 }

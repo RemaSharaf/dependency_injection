@@ -15,6 +15,9 @@ class PageOne extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Text(controller.argument),
+          Text(Get.previousRoute),
+          Text(Get.routing.current),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

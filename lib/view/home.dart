@@ -1,14 +1,12 @@
-import 'package:dependency_injection/controller/page_one_controller.dart';
-import 'package:dependency_injection/locale/locale_controller.dart';
-import 'package:dependency_injection/utils/bindings_dependency.dart';
+import 'package:dependency_injection/services/settings_services.dart';
 import 'package:dependency_injection/view/page_one.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Home extends StatelessWidget {
-  Home({super.key});
+class Home extends GetView<SettingServices> {
+  const Home({super.key});
   // final controller = Get.lazyPut(() => PageOneController());
-  LocaleController controller = Get.find();
+  // LocaleController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +21,10 @@ class Home extends StatelessWidget {
           children: [
             ElevatedButton(
                 onPressed: () {
-                  controller.changeLan("ar");
-                  // Get.to(() => PageOne());
+                  // controller.changeLan("ar");
+                  Get.to(() => PageOne(), arguments: {
+                    "id": "Reema",
+                  });
                 },
                 style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 10),
@@ -37,11 +37,11 @@ class Home extends StatelessWidget {
                 )),
             ElevatedButton(
                 onPressed: () {
-                  controller.changeLan("en");
+                  // controller.changeLan("en");
 
-                  // Get.toNamed(
-                  //   "/PageTwo",
-                  // );
+                  Get.toNamed(
+                    "/PageTwo",
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 10),
@@ -51,6 +51,21 @@ class Home extends StatelessWidget {
                     minimumSize: Size(size.width / 3, 45)),
                 child: Text(
                   "2".tr,
+                )),
+            ElevatedButton(
+                onPressed: () {
+                  Get.isDarkMode
+                      ? Get.changeTheme(ThemeData.light())
+                      : Get.changeTheme(ThemeData.dark());
+                },
+                style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    minimumSize: Size(size.width / 3, 45)),
+                child: const Text(
+                  "Change theme",
                 )),
           ],
         ),

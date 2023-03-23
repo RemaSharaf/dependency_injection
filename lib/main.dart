@@ -4,6 +4,7 @@ import 'package:dependency_injection/middleware/middleware_super.dart';
 import 'package:dependency_injection/services/settings_services.dart';
 import 'package:dependency_injection/utils/bindings_dependency.dart';
 import 'package:dependency_injection/view/counter.dart';
+import 'package:dependency_injection/view/dialog.dart';
 import 'package:dependency_injection/view/home.dart';
 import 'package:dependency_injection/view/middleware_screens/%D9%90admin.dart';
 import 'package:dependency_injection/view/middleware_screens/home.dart';
@@ -13,7 +14,6 @@ import 'package:dependency_injection/view/page_one.dart';
 import 'package:dependency_injection/view/page_two.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,8 +31,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SettingServices c = Get.find();
     return GetMaterialApp(
-      locale: Locale("ar"),
+      theme: ThemeData.light(),
+      locale: Locale(c.sharedPreferences.getString("lang")!),
       translations: MyLocale(),
       debugShowCheckedModeBanner: false,
       initialRoute: "/",
@@ -40,7 +42,7 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(
           name: "/",
-          page: () => Home(),
+          page: () => const Home(),
         ),
         GetPage(name: "/LogIn", page: () => const LogIn(), middlewares: [
           MiddlewareAuth(),
@@ -69,6 +71,10 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: "/Counter",
           page: () => const Counter(),
+        ),
+        GetPage(
+          name: "/Dialog",
+          page: () => const DialogGet(),
         ),
       ],
     );
